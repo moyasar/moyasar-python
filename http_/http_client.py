@@ -13,40 +13,38 @@ import json
 from moyasar import Moyasar
 
 
-class HttpClient(Moyasar):
+class HttpClient:
 
-    _key = Moyasar.test_publishable_key
+    HEADERS = {"content-type": "application/json"}
 
 
-    @classmethod
-    def request(cls,method, _url= None, arguments= None ):
+    @staticmethod
+    def request(method, _url= None, arguments= None, _key = None):
 
         if method is "get" or method is "GET":
             try:
-                moyasar_call = requests.get(_url,auth=HTTPBasicAuth(HttpClient._key,''))
+                moyasar_call = requests.get(_url,auth=HTTPBasicAuth(_key,''), headers= HttpClient.HEADERS)
                 return moyasar_call.json()
             except RequestException as e:
                 print(e)
 
         if method is "put" or method is "PUT":
             try:
-                moyasar_call = requests.put(_url, auth= HTTPBasicAuth(HttpClient._key,''), json= arguments)
-                return moyasar_call.json()
+                moyasar_call = requests.put( _url, auth= HTTPBasicAuth(_key,''), json= arguments,
+                                            headers= HttpClient.HEADERS )
+
+                if moyasar_call.content is b'':
+                    return moyasar_call.status_code
+                else:
+                    return moyasar_call.json()
+
             except RequestException as e:
                 return e
 
         if method is "post" or method is "POST":
             try:
-                print('here')
-                moyasar_call = requests.post(_url,auth= HTTPBasicAuth(HttpClient._key,''),json= arguments)
-                print('here2')
+                moyasar_call = requests.post(_url,auth= HTTPBasicAuth(_key,''), json= arguments
+                                             , headers=HttpClient.HEADERS)
                 return moyasar_call.json()
             except RequestException as e:
                 return e
-
-
-# h = HttpClient.request("post", _url= url.refund_payment_url('cc3886a6-71b7-477b-9fde-8d11b20a4ecd'),
-# key = HttpClient.sk_key ,arguments= {"amount": 100})
-# print(h)
-
-# print(HttpClient.request(method= 'get', _url= url.list_payments_url()))

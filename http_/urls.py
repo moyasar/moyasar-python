@@ -20,3 +20,20 @@ def update_payment_url(payment_id):
 def list_payments_url():
     return payments_url
 
+
+invoice_url = 'https://api.moyasar.com/v1/invoices'
+
+def create_invoice_url():
+    return invoice_url
+
+def fetch_invoice_url(invoice_id):
+    return invoice_url+'/'+invoice_id
+
+def update_invoice_url(invoice_id):
+    return invoice_url+'/'+invoice_id
+
+def cancel_invoice_url(invoice_id):
+    return invoice_url+'/'+invoice_id+'/cancel'
+
+def list_invoices_url():
+    return invoice_url
