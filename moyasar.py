@@ -9,33 +9,38 @@ test_secret_key( _key ), test_publishable_key( _key ), live_secret_key( _key ), 
 
 from errors import BuiltInExceptions as be
 
+
 class Moyasar:
 
     @staticmethod
-    def test_secret_key( _key ):
+    def test_secret_key(_key):
         if _key.startswith('sk_test'):
             return _key
+
         else:
             be.invalid_key('Invalid Test Secret Key')
 
-
     @staticmethod
-    def test_publishable_key( _key ):
+    def test_publishable_key(_key):
         if _key.startswith('pk_test'):
             return _key
+
         else:
             be.invalid_key('Invalid Test Publishable Key')
 
     @staticmethod
-    def live_secret_key( _key ):
+    def live_secret_key(_key):
         if _key.startswith('sk_live'):
             return _key
+
         else:
             be.invalid_key('Invalid Live Secret Key')
 
     @staticmethod
-    def live_publishable_key( _key ):
+    def live_publishable_key(_key):
         if _key.startswith('pk_live'):
             return _key
+
         else:
             be.invalid_key('Invalid Live Publishable Key')
+

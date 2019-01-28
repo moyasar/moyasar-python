@@ -9,8 +9,10 @@ invalid_key(msg) which raises a value error when key is invalid
 
 import globals
 
+
 class APIError(Exception):
     pass
+
 
 class BuiltInExceptions(Exception):
 
@@ -18,11 +20,14 @@ class BuiltInExceptions(Exception):
     def key_unavailability(my_key):
         if my_key is globals.sentinel:
             raise ValueError("You did not provide a key")
+
         elif my_key is None:
             raise ValueError("Your key cannot be None")
+
         else:
             return
 
     @staticmethod
     def invalid_key(msg):
         raise ValueError(msg)
+
