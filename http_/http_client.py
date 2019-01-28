@@ -1,20 +1,20 @@
 """This is the http client module.
+This module contains HttpClient class that contains the following:
 
-This module is an http client to provide basic http requests.
+HEADER: a const class variable to determine http headers.
+request(): a static method to establish http requests regardless of http verbs.
+handle_response(): a static method to classify http response status code,
+ and handle it according to that.
 """
 
 import requests
 from requests.auth import HTTPBasicAuth
 from requests.exceptions import RequestException
-import http_.urls as url
 
-import json
 from errors import APIError
-from moyasar import Moyasar
-
 
 class HttpClient:
-# TODO: parse http
+
     HEADERS = {"content-type": "application/json"}
 
     @staticmethod

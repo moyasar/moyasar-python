@@ -1,12 +1,16 @@
-"""This is Moyasar module.
-
-This module contains credentials needed to use Moyasar services
+"""This is moyasar module.
+This module contains class Moyasar that is currently used to validate user provided key,
+and to it contains static methods that return keys, a method per Moyasar key (live secret, test publishable..)
+allowing moyasar-python lib user to use for example both test secret and test publishable
+in more explicit Pythonic manner.
+The methods are:
+test_secret_key( _key ), test_publishable_key( _key ), live_secret_key( _key ), live_publishable_key( _key )
 """
 
 class Moyasar:
 
     @staticmethod
-    def test_secret_key( _key = None ):
+    def test_secret_key( _key ):
         if _key.startswith('sk_test'):
             return _key
         else:
