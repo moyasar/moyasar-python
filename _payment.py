@@ -91,8 +91,8 @@ class Payment(Moyasar):
 # print(p.fetch_payment())
 my_key = Moyasar.test_secret_key('sk_test_DUtsJkXP9hdJYyG4dVTdevz9R5QzbCDrF3KTPDNV')
 
-p = Payment('c4b49d02-d3ca-4946-841a-bc0e8ea462f9')
-# print(p.update_payment(arguments={"description": "yay2"},my_key=my_key))
+p = Payment('5adb88d4-14b3-46bc-a197-30f2e786c976')
+print(p.update_payment(arguments={"description": "yay2"}, my_key=my_key))
 #
 
 # print(Payment.list_payments(my_key))

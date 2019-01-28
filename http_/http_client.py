@@ -9,42 +9,59 @@ from requests.exceptions import RequestException
 import http_.urls as url
 
 import json
-
+from errors import APIError
 from moyasar import Moyasar
 
 
 class HttpClient:
-
+# TODO: parse http
     HEADERS = {"content-type": "application/json"}
-
 
     @staticmethod
     def request(method, _url= None, arguments= None, _key = None):
 
         if method is "get" or method is "GET":
             try:
-                moyasar_call = requests.get(_url,auth=HTTPBasicAuth(_key,''), headers= HttpClient.HEADERS)
-                return moyasar_call.json()
+                response = requests.get(_url,auth=HTTPBasicAuth(_key,''), headers= HttpClient.HEADERS)
+                response_body = response.json()
+                http_code = response.status_code
+                return HttpClient.handle_response(http_code, response_body)
             except RequestException as e:
-                print(e)
+                return e
 
         if method is "put" or method is "PUT":
             try:
-                moyasar_call = requests.put( _url, auth= HTTPBasicAuth(_key,''), json= arguments,
+                response = requests.put( _url, auth= HTTPBasicAuth(_key,''), json= arguments,
                                             headers= HttpClient.HEADERS )
 
-                if moyasar_call.content is b'':
-                    return moyasar_call.status_code
+                if response.content is b'':
+                    # does not return moyasar object, only a status code
+                    # ex. PUT https://api.moyasar.com/v1/payments/:id
+                    return response.status_code
                 else:
-                    return moyasar_call.json()
+                    response_body = response.json()
+                    http_code = response.status_code
+                    return HttpClient.handle_response(http_code, response_body)
 
             except RequestException as e:
                 return e
 
         if method is "post" or method is "POST":
             try:
-                moyasar_call = requests.post(_url,auth= HTTPBasicAuth(_key,''), json= arguments
+                response = requests.post(_url,auth= HTTPBasicAuth(_key,''), json= arguments
                                              , headers=HttpClient.HEADERS)
-                return moyasar_call.json()
+                response_body = response.json()
+                http_code = response.status_code
+                return HttpClient.handle_response(http_code, response_body)
             except RequestException as e:
                 return e
+
+    @staticmethod
+    def handle_response(http_code, response_body = None):
+        if http_code in range(400,429,1):
+            response_body["http_code"] = http_code
+            return response_body
+        elif http_code in range(500,504,1):
+            raise APIError('We had a problem with Moyasar server')
+        else: # 200
+            return response_body

@@ -2,7 +2,9 @@
 
 This module contains a payment class to accomplish the Moyasar payment service.
 """
-# TODO: make parameters shared between invoice and payment
+
+# TODO: moyasar parameters
+
 from http_ import http_client
 from http_ import urls
 from moyasar import Moyasar
@@ -52,7 +54,7 @@ class Invoice(Moyasar):
         except Exception as e:
             return e
 
-my_key = Moyasar.test_secret_key('sm_test_DUtsJkXP9hdJYyG4dVTdevz9R5QzbCDrF3KTPDNV')
+my_key = Moyasar.test_secret_key('sk_test_DUtsJkXP9hdJYyG4dVTdevz9R5QzbCDrF3KTPDNV')
 # print(Invoice.create_invoice({
 #     "amount":600,
 #     "currency": "SAR",
@@ -60,10 +62,10 @@ my_key = Moyasar.test_secret_key('sm_test_DUtsJkXP9hdJYyG4dVTdevz9R5QzbCDrF3KTPD
 # }, my_key))
 
 
-i = Invoice('388773cf-a39a-4706-8a30-6e56611e942f')
+# i = Invoice('388773cf-a39a-4706-8a30-6e56611e942f')
 
 # print(Invoice.fetch_invoice(i,my_key))
 
 # print(i.update_invoice(arguments= {"currency":"SAR"}, my_key=my_key))
 
-print(Invoice.list_invoices(my_key))
+# print(Invoice.list_invoices(my_key))
