@@ -6,11 +6,10 @@ create_invoice(arguments, my_key), fetch_invoice(self, my_key), update_invoice(s
 list_invoices(my_key).
 """
 
-from http_ import http_client
-from http_ import urls
-from moyasar import Moyasar
-from globals import sentinel
-from errors import BuiltInExceptions as be
+from src.http_ import urls, http_client
+from src.moyasar import Moyasar
+from src.globals import sentinel
+from src.errors import BuiltInExceptions as be
 
 
 class Invoice(Moyasar):
@@ -26,7 +25,7 @@ class Invoice(Moyasar):
         be.key_unavailability(my_key)
 
         try:
-            response = http_client.HttpClient.request(method= "post", _url= urls.create_invoice_url(),
+            response = http_client.HttpClient.request(method="post", _url= urls.create_invoice_url(),
                                                       arguments= arguments, _key= my_key)
             return response
         except Exception as e:
@@ -37,7 +36,7 @@ class Invoice(Moyasar):
         be.key_unavailability(my_key)
 
         try:
-            response = http_client.HttpClient.request(method= "get", _url= urls.fetch_invoice_url(self.instance_id),
+            response = http_client.HttpClient.request(method="get", _url= urls.fetch_invoice_url(self.instance_id),
                                                       _key= my_key)
             return response
         except Exception as e:
@@ -48,7 +47,7 @@ class Invoice(Moyasar):
         be.key_unavailability(my_key)
 
         try:
-            response = http_client.HttpClient.request(method= "put", _url= urls.update_invoice_url(self.instance_id),
+            response = http_client.HttpClient.request(method="put", _url= urls.update_invoice_url(self.instance_id),
                                                       arguments= arguments, _key= my_key)
             return response
         except Exception as e:
@@ -59,7 +58,7 @@ class Invoice(Moyasar):
         be.key_unavailability(my_key)
 
         try:
-            response = http_client.HttpClient.request(method= "put", _url= urls.cancel_invoice_url(self.instance_id),
+            response = http_client.HttpClient.request(method="put", _url= urls.cancel_invoice_url(self.instance_id),
                                                       _key= my_key)
             return response
         except Exception as e:
@@ -71,7 +70,7 @@ class Invoice(Moyasar):
         be.key_unavailability(my_key)
 
         try:
-            response = http_client.HttpClient.request(method= "get", _url= urls.list_invoices_url(),
+            response = http_client.HttpClient.request(method="get", _url= urls.list_invoices_url(),
                                                       _key= my_key)
             return response
         except Exception as e:
