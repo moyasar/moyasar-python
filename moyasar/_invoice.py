@@ -6,10 +6,10 @@ create_invoice(arguments, my_key), fetch_invoice(self, my_key), update_invoice(s
 list_invoices(my_key).
 """
 
-from src.http_ import urls, http_client
-from src.moyasar import Moyasar
-from src.globals import sentinel
-from src.errors import BuiltInExceptions as be
+from moyasar.http_ import urls, http_client
+from moyasar.moyasar import Moyasar
+from moyasar.globals import sentinel
+from moyasar.errors import BuiltInExceptions as be
 
 
 class Invoice(Moyasar):

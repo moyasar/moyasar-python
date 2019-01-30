@@ -11,7 +11,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 from requests.exceptions import RequestException
 
-from src.errors import APIError
+from moyasar.errors import APIError
 
 
 class HttpClient:

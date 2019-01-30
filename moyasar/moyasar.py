@@ -7,7 +7,7 @@ The methods are:
 test_secret_key( _key ), test_publishable_key( _key ), live_secret_key( _key ), live_publishable_key( _key )
 """
 
-from src.errors import BuiltInExceptions as be
+from moyasar.errors import BuiltInExceptions as be
 
 
 class Moyasar:

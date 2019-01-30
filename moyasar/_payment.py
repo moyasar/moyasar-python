@@ -6,10 +6,10 @@ create_payment(arguments, my_key), fetch_payment(self, my_key), refund_payment(s
 update_payment(self,arguments, my_key), list_payments(my_key)
 """
 
-from src.http_ import urls, http_client
-from src.moyasar import Moyasar
-from src.errors import BuiltInExceptions as be
-from src.globals import sentinel
+from moyasar.http_ import urls, http_client
+from moyasar.moyasar import Moyasar
+from moyasar.errors import BuiltInExceptions as be
+from moyasar.globals import sentinel
 
 
 class Payment(Moyasar):

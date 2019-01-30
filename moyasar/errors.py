@@ -7,7 +7,7 @@ which validates the presence of user key then raises ValueError exception accord
 invalid_key(msg) which raises a value error when key is invalid
 """
 
-from src import globals
+from moyasar import globals
 
 
 class APIError(Exception):
