@@ -7,40 +7,13 @@ The methods are:
 test_secret_key( _key ), test_publishable_key( _key ), live_secret_key( _key ), live_publishable_key( _key )
 """
 
-from moyasar.errors import BuiltInExceptions as be
 
+API_KEY = ''
 
-class Moyasar:
+def set_api_key(key):
+    global API_KEY
+    API_KEY = key
 
-    @staticmethod
-    def test_secret_key(_key):
-        if _key.startswith('sk_test'):
-            return _key
-
-        else:
-            be.invalid_key('Invalid Test Secret Key')
-
-    @staticmethod
-    def test_publishable_key(_key):
-        if _key.startswith('pk_test'):
-            return _key
-
-        else:
-            be.invalid_key('Invalid Test Publishable Key')
-
-    @staticmethod
-    def live_secret_key(_key):
-        if _key.startswith('sk_live'):
-            return _key
-
-        else:
-            be.invalid_key('Invalid Live Secret Key')
-
-    @staticmethod
-    def live_publishable_key(_key):
-        if _key.startswith('pk_live'):
-            return _key
-
-        else:
-            be.invalid_key('Invalid Live Publishable Key')
-
+def get_api_key():
+    global API_KEY
+    return API_KEY

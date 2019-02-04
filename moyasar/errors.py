@@ -6,28 +6,26 @@ The second is BuiltInExceptions class. It contains a static method key_unavailab
 which validates the presence of user key then raises ValueError exception accordingly, and a static method
 invalid_key(msg) which raises a value error when key is invalid
 """
-
-from moyasar import globals
-
+sentinel = object()
 
 class APIError(Exception):
     pass
 
 
-class BuiltInExceptions(Exception):
-
-    @staticmethod
-    def key_unavailability(my_key):
-        if my_key is globals.sentinel:
-            raise ValueError("You did not provide a key")
-
-        elif my_key is None:
-            raise ValueError("Your key cannot be None")
-
-        else:
-            return
-
-    @staticmethod
-    def invalid_key(msg):
-        raise ValueError(msg)
+# class BuiltInExceptions(Exception):
+#
+#     @staticmethod
+#     def key_unavailability(my_key):
+#         if my_key is sentinel:
+#             raise ValueError("You did not provide a key")
+#
+#         elif my_key is None:
+#             raise ValueError("Your key cannot be None")
+#
+#         else:
+#             return
+    #
+    # @staticmethod
+    # def invalid_key(msg):
+    #     raise ValueError(msg)
 
