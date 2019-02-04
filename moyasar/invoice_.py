@@ -7,7 +7,7 @@ list_invoices(my_key).
 """
 
 from moyasar.http_ import urls, http_client
-from moyasar._moyasar import Moyasar
+from moyasar.moyasar_ import Moyasar
 from moyasar.globals import sentinel
 from moyasar.errors import BuiltInExceptions as be
 

@@ -12,7 +12,7 @@ from requests.auth import HTTPBasicAuth
 from requests.exceptions import RequestException
 
 from moyasar.errors import APIError
-from moyasar._moyasar import get_api_key
+from moyasar.moyasar_ import get_api_key, set_api_key
 
 
 

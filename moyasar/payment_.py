@@ -103,24 +103,19 @@ class Payment:
             setattr(self, key, kwargs[key])
 
 
-    def update_payment(self, arguments, my_key=sentinel):
+    def update_payment(self, arguments):
         try:
             response = http_client.request(method="put", _url=urls.update_payment_url(self.id),
-                                                          arguments=arguments, _key=my_key)
+                                                          arguments=arguments)
             return response
         except Exception as e:
             return e
 
 
-    def refund_payment(self, arguments, my_key=sentinel):
+    def refund_payment(self, arguments):
         try:
             response = http_client.request(method="post", _url=urls.refund_payment_url(self.id),
-                                                          arguments=arguments, _key=my_key)
+                                                          arguments=arguments)
             return response
         except Exception as e:
             return e
-
-
-key = set_api_key('sk_test_DUtsJkXP9hdJYyG4dVTdevz9R5QzbCDrF3KTPDNV')
-i = fetch_payment('5adb88d4-14b3-46bc-a197-30f2e786c976')
-print(i)
