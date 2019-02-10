@@ -17,7 +17,7 @@ See the `Python API docs. <https://moyasar.com/docs/api/?python>`_
 Requirements
 -------------
 
-* Python 2.7 or Python 3
+* Python +2.7 or +3.x
 
 --------------
 Installation
