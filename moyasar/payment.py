@@ -10,9 +10,9 @@ class Source:
     @classmethod
     def build(cls, payment):
         if payment.source['type'] == "creditcard":
-            payment.source = CreditCard.source_to_creditcard(payment.source)
+            payment.source = Source.source_to_creditcard(payment.source)
         else:
-            payment.source = Sadad.source_to_sadad(payment.source)
+            payment.source = Source.source_to_sadad(payment.source)
         return payment
 
     @classmethod
