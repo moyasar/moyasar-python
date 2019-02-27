@@ -20,32 +20,18 @@ API_URI = r"api(mig)?\.moyasar\.com\/v1\/.*"
 # )
 
 
-def stub_server_request(resource, key, status=200, body={},
-                        error_message=None, errors=None):
+def stub_server_request(method, url, resource, status=200):
     response = ''
 
     if status in range(200, 201):
-        resource = json.loads(open(resource).read())
-        return resource
-
-    if status in range(400, 429):
-        defaults = {"type": "authentication_error", "message": "Invalid authorization credentials", "errors": None, "http_code": status}
+        response = json.loads(open(resource).read())
+    elif status in range(400, 429):
+        response = {"type": "authentication_error", "message": "Invalid authorization credentials", "errors": None, "http_code": status}
         if status == 401:
-            defaults.update({"type": "authentication_error", "http_code": 401})
-            response = defaults
-            # raise Exception(f'{json.dumps(response)}')
+            response.update({"type": "authentication_error", "http_code": 401})
         if status == 400:
-            defaults.update({"type": "invalid_request_error", "http_code": 400})
-            response = defaults
-            return response
+            response.update({"type": "invalid_request_error", "http_code": 400})
 
-    string = '%s:%s' % (f'{key}', '')
-    base64string = base64.standard_b64encode(string.encode('utf-8'))
-
-    httpretty.register_uri(httpretty.OPTIONS, API_URI,
-                           adding_headers={"Authorization": "Basic %s" % base64string.decode('utf-8')},
-                           body=response)
-
-    # adapter = requests_mock.Adapter()
-    # adapter.register_uri(requests_mock.ANY, API_URI, request_headers=
-    # {"Authorization": "Basic %s" % base64string.decode('utf-8')}, json=response, status_code=status)
+    httpretty.enable()
+    httpretty.reset()
+    httpretty.register_uri(method.upper(), url, body=json.dumps(response), status=status)

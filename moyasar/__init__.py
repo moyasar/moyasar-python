@@ -5,7 +5,7 @@ import json
 from moyasar.payment import Payment
 from moyasar.invoice import Invoice
 
-api_key = ''
+api_key = None
 api_version = 'v1'
 api_url = f'https://api.moyasar.com/{api_version}'
 
@@ -19,9 +19,11 @@ def fill_object(object, data):
         object.__setattr__(key, data[key])
 
 
-def request(http_verb, url, data):
-    string = '%s:%s' % (f'{api_key}', '')
-    base64string = base64.standard_b64encode(string.encode('utf-8'))
+def request(http_verb, url, data, key=None):
+    moyasar_key = key or api_key
+
+    if moyasar_key is None:
+        raise Exception('API key must be provided')
 
     request = {
         'method': http_verb.upper(),
