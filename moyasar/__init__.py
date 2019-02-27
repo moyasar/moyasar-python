@@ -1,3 +1,5 @@
+import base64
+
 import requests
 import json
 from moyasar.payment import Payment
@@ -18,6 +20,9 @@ def fill_object(object, data):
 
 
 def request(http_verb, url, data):
+    string = '%s:%s' % (f'{api_key}', '')
+    base64string = base64.standard_b64encode(string.encode('utf-8'))
+
     request = {
         'method': http_verb.upper(),
         'url': url,
@@ -40,4 +45,4 @@ def request(http_verb, url, data):
         raise Exception(f'{json.dumps(json_dict)}')
     if res.status_code in range(500, 504):
         raise Exception(f'API Error with status code: {res.status_code}')
-    return res.text
+    return res
