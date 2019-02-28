@@ -8,5 +8,6 @@ class Cancel:
 
     def cancel(self):
         response = moyasar.request('PUT', self.cancel_url(self.id), None)
-        response = json.loads(response)
+        response = json.loads(response.text)
         moyasar.fill_object(self, response)
+        return response

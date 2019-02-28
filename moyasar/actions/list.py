@@ -10,7 +10,7 @@ class List:
     @classmethod
     def list(cls, data=None):
         response = moyasar.request('GET', cls.list_url(), data)
-        response = json.loads(response)
+        response = json.loads(response.text)
         field_name = f'{cls.__name__}s'.lower()
         resource_list = []
         for resource in response[field_name]:

@@ -10,7 +10,7 @@ class Create:
     @classmethod
     def create(cls, data):
         response = moyasar.request('POST', cls.create_url(), data)
-        response = json.loads(response)
+        response = json.loads(response.text)
         resource = cls()
         moyasar.fill_object(resource, response)
         return resource

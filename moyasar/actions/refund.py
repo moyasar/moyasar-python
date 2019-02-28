@@ -12,5 +12,5 @@ class Refund:
             data = {'amount': amount}
 
         response = moyasar.request('POST', self.refund_url(self.id), data)
-        response = json.loads(response)
+        response = json.loads(response.text)
         moyasar.fill_object(self, response)

@@ -7,4 +7,5 @@ class Update:
         return f'{moyasar.resource_url(self.__class__.__name__)}/{id}'.lower()
 
     def update(self, data):
-        moyasar.request('PUT', self.update_url(self.id), data)
+        response = moyasar.request('PUT', self.update_url(self.id), data)
+        return response

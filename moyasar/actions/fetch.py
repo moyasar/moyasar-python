@@ -10,7 +10,7 @@ class Fetch:
     @classmethod
     def fetch(cls, id):
         response = moyasar.request('GET', cls.fetch_url(id), None)
-        response = json.loads(response)
+        response = json.loads(response.text)
         resource = cls()
         moyasar.fill_object(resource, response)
         return resource
