@@ -5,10 +5,6 @@ import tests.server_stubs as ss
 import moyasar
 import tests.fixtures.fixtures as f
 import copy
-#
-# @pytest.fixture
-# def rootdir():
-#     return os.path.dirname(os.path.abspath(__file__))
 
 
 def test_create_should_return_intiated_invoice_for_sadad_source():
