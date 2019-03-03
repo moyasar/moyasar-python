@@ -1,5 +1,6 @@
 from moyasar.resource import Resource
 from moyasar.actions.refund import Refund
+import pdb
 
 
 class Source:
@@ -8,12 +9,11 @@ class Source:
             setattr(self, key, kwargs[key])
 
     @classmethod
-    def build(cls, payment):
-        if payment.source['type'] == "creditcard":
-            payment.source = Source.source_to_creditcard(payment.source)
+    def build(cls, source):
+        if source['type'] == "creditcard":
+            Source.source_to_creditcard(source)
         else:
-            payment.source = Source.source_to_sadad(payment.source)
-        return payment
+            Source.source_to_sadad(source)
 
     @classmethod
     def source_to_creditcard(cls, data):
@@ -34,22 +34,24 @@ class Sadad(Source):
     pass
 
 
-class Payment(Resource, Refund):
+class Payment(Resource, Refund, Source):
 
     @classmethod
     def fetch(cls, id):
         payment = super().fetch(id)
-        return Source.build(payment)
+        payment.source = Source.build(payment.source)
+        return payment
 
     @classmethod
     def list(cls, data=None):
         payments = super().list(data)
         fixed_payments = []
         for p in payments:
-            fixed_payments.append(Source.build(p))
-
+            p.source = Source.build(p.source)
+            fixed_payments.append(p)
         return fixed_payments
 
     def refund(self, amount=None):
         super().refund(amount)
-        __class__.build(self)
+        __class__.build(self.source)
+        return self
