@@ -2,7 +2,7 @@ import base64
 
 import requests
 import json
-from moyasar.paymentt import Payment
+from moyasar.payment import Payment
 from moyasar.invoice import Invoice
 
 api_key = None
