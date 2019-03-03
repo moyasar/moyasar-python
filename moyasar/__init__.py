@@ -2,7 +2,7 @@ import base64
 
 import requests
 import json
-from moyasar.payment import Payment
+from moyasar.paymentt import Payment
 from moyasar.invoice import Invoice
 
 api_key = None
@@ -40,11 +40,11 @@ def request(http_verb, url, data, key=None):
             request['data'] = json.dumps(data)
 
     res = requests.request(**request)
-    if res.status_code in range(400, 404):
+    if 400 <= res.status_code <= 404:
         json_string = res.text
         json_dict = json.loads(json_string)
         json_dict["http_code"] = res.status_code
         raise Exception(f'{json.dumps(json_dict)}')
-    if res.status_code in range(500, 504):
+    if 500 <= res.status_code <= 504:
         raise Exception(f'API Error with status code: {res.status_code}')
     return res
