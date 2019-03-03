@@ -1,11 +1,11 @@
 import moyasar
 import json
+from moyasar.constructor import Constructor
 
 
-class Fetch:
+class Fetch(Constructor):
     def __init__(self, data):
-        for key in data:
-            self.__setattr__(key, data[key])
+        super().__init__(data)
 
     @classmethod
     def fetch_url(cls, id):

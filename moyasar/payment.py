@@ -1,15 +1,14 @@
 from moyasar.resource import Resource
 from moyasar.actions.refund import Refund
+from moyasar.constructor import Constructor
 
 
-class Source:
+class Source(Constructor):
     def __init__(self, **kwargs):
-        for key in kwargs:
-            setattr(self, key, kwargs[key])
+        super().__init__(**kwargs)
 
     @classmethod
     def build(cls, payment):
-        print(type(payment))
         if payment.source['type'] == "creditcard":
             payment.source = Source.source_to_creditcard(payment.source)
         else:

@@ -1,11 +1,11 @@
 import moyasar
 import json
+from moyasar.constructor import Constructor
 
 
-class Create:
+class Create(Constructor):
     def __init__(self, data):
-        for key in data:
-            self.__setattr__(key, data[key])
+        super().__init__(data)
 
     @classmethod
     def create_url(cls):
