@@ -3,10 +3,10 @@ import setuptools
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
-    name="moyasar-python",
+    name="moyasar",
     version="0.6",
     author="Moyasar",
-    author_email="developer@moyasar.com",
+    author_email="developers@moyasar.com",
     description="Moyasar Python language wrapper",
     long_description=long_description,
     long_description_content_type="text/markdown",
