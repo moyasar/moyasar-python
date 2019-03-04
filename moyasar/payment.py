@@ -8,12 +8,12 @@ class Source(Constructor):
         super().__init__(**kwargs)
 
     @classmethod
-    def build(cls, payment):
-        if payment.source['type'] == "creditcard":
-            payment.source = Source.source_to_creditcard(payment.source)
+    def build(cls, source):
+        if source['type'] == "creditcard":
+            source = Source.source_to_creditcard(source)
         else:
-            payment.source = Source.source_to_sadad(payment.source)
-        return payment
+            source = Source.source_to_sadad(source)
+        return source
 
     @classmethod
     def source_to_creditcard(cls, data):
@@ -37,8 +37,9 @@ class Sadad(Source):
 class Payment(Resource, Refund):
     def __init__(self, data):
         super().__init__(data)
-        Source.build(self)
+        self.source = Source.build(self.source)
 
     def refund(self, amount=None):
         super().refund(amount)
-        __class__.build(self)
+        self.source = Source.build(self.source)
+        return self
