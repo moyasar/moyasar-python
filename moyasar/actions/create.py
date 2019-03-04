@@ -5,7 +5,7 @@ from moyasar.constructor import Constructor
 
 class Create(Constructor):
     def __init__(self, data):
-        super().__init__(data)
+        super().__init__(**data)
 
     @classmethod
     def create_url(cls):

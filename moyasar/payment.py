@@ -41,4 +41,5 @@ class Payment(Resource, Refund):
 
     def refund(self, amount=None):
         super().refund(amount)
-        __class__.build(self)
+        Source.build(self)
+        return self

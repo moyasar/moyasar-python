@@ -1,5 +1,3 @@
-import base64
-
 import requests
 import json
 from moyasar.payment import Payment
