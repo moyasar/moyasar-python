@@ -17,4 +17,10 @@ setuptools.setup(
         "License :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=[
+        'requests',
+        'httpretty',
+        'pytest'
+    ],
+    download_url='https://github.com/moyasar/moyasar-python/archive/v0.6.0.tar.gz'
 )
