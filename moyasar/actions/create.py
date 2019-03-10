@@ -7,6 +7,7 @@ class Create(Constructor):
     def __init__(self, data):
         super().__init__(**data)
 
+
     @classmethod
     def create_url(cls):
         return f'{moyasar.resource_url(cls.__name__)}'.lower()
