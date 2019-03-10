@@ -1,5 +1,4 @@
 import moyasar
-import json
 
 
 class Update:
