@@ -1,8 +1,8 @@
-import moyasar
-import tests.server_stubs as ss
-import tests.fixtures.fixtures as f
 import copy
-import pytest
+
+import moyasar
+import tests.fixtures.fixtures as f
+import tests.server_stubs as ss
 
 
 def test_list_should_return_list_of_payment_objects():
