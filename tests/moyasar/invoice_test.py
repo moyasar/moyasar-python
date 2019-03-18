@@ -7,19 +7,6 @@ import tests.fixtures.fixtures as f
 import copy
 
 
-def test_create_should_return_intiated_invoice_for_sadad_source():
-    params = {"amount": 1000, "currency": "SAR", "description": "Test"}
-    ss.stub_server_request("post", moyasar.Invoice.create_url(),
-                           resource=f.invoice, status=200)
-    moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
-    invoice = moyasar.Invoice.create(params)
-    assert isinstance(invoice, moyasar.Invoice)
-    assert invoice.status == "initiated"
-    assert int(invoice.amount) == params['amount']
-    assert invoice.currency == params['currency']
-    assert invoice.description == params['description']
-
-
 def test_list_should_return_list_of_invoice_objects():
     ss.stub_server_request("get", moyasar.Invoice.list_url(),
                            resource=f.invoices, status=200)
