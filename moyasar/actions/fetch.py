@@ -4,8 +4,6 @@ from moyasar.constructor import Constructor
 
 
 class Fetch(Constructor):
-    def __init__(self, data):
-        super().__init__(data)
 
     @classmethod
     def fetch_url(cls, id):
