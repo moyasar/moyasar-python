@@ -4,7 +4,7 @@ with open("README.rst", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name="moyasar",
-    version="0.6.1",
+    version="0.6.0",
     author="Moyasar",
     author_email="developers@moyasar.com",
     description="Moyasar Python language wrapper",
@@ -22,5 +22,5 @@ setuptools.setup(
         'httpretty',
         'pytest'
     ],
-    download_url='https://github.com/moyasar/moyasar-python/archive/v0.6.1.tar.gz'
+    download_url='https://github.com/moyasar/moyasar-python/archive/v0.6.0.tar.gz'
 )

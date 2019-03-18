@@ -3,7 +3,6 @@ from moyasar.actions.refund import Refund
 from moyasar.constructor import Constructor
 
 
-
 class Source(Constructor):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
