@@ -1,49 +1,8 @@
-import moyasar
-import tests.server_stubs as ss
-import tests.fixtures.fixtures as f
 import copy
-import pytest
 
-
-def test_create_should_return_intiated_payment_for_sadad_source():
-    params = {"amount": 1000, "currency": "SAR", "description": "Test"}
-    ss.stub_server_request("post", moyasar.Payment.create_url(),
-                           resource=f.payment, status=200)
-    moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
-    payment = moyasar.Payment.create(params)
-    assert isinstance(payment, moyasar.Payment)
-    assert payment.status == "initiated"
-    assert int(payment.amount) == params['amount']
-    assert payment.currency == params['currency']
-    assert payment.description == params['description']
-
-
-def test_create_with_amount_less_than_100_cent_should_raise_validation_errror():
-    modified_resource = copy.deepcopy(f.payment)
-    modified_resource.update({"amount": 90})
-    ss.stub_server_request('post', moyasar.Payment.create_url(), resource=modified_resource,
-                           status=400, error_message="Validation Failed",
-                           errors={"amount": "must be greater than 99"})
-    assert pytest.raises(Exception)
-
-
-def test_create_payment_for_inovice_should_be_acceptable():
-    ss.stub_server_request("get", moyasar.Invoice.list_url(),
-                           resource=f.invoices, status=200)
-    invoices = moyasar.Invoice.list()
-    first_invoice_id = ''
-    for key, val in invoices[0].__dict__.items():
-        if key == "id":
-            first_invoice_id = val
-
-    modified_resource = copy.deepcopy(f.payment)
-    modified_resource.update({"invoice_id": first_invoice_id})
-    ss.stub_server_request("post", moyasar.Payment.create_url(),
-                           resource=modified_resource, status=200)
-    moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
-    payment = moyasar.Payment.create(modified_resource)
-    assert isinstance(payment, moyasar.Payment)
-    assert payment.invoice_id == first_invoice_id
+import moyasar
+import tests.fixtures.fixtures as f
+import tests.server_stubs as ss
 
 
 def test_list_should_return_list_of_payment_objects():
@@ -85,29 +44,6 @@ def test_update_should_update_payment_description():
 
     assert updated.status_code == 200
     assert new_description["description"] == after_updated.description
-
-
-# def test_refund_should_operate_normally_by_recharging_back_all_amount_as_a_default():
-#     id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
-#     ss.stub_server_request("get", moyasar.Payment.fetch_url(id),
-#                            resource=f.payment, status=200)
-#     moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
-#     original = moyasar.Payment.fetch(id)
-#     params = {'status': 'refunded', 'refunded': original.amount}
-#     custom_invoice = copy.deepcopy(f.payment)
-#     custom_invoice.update(params)
-#     ss.stub_server_request("post", f'{moyasar.api_url}/payments/{id}/refund',
-#                            resource=custom_invoice, status=200)
-#     moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
-#     refunded = original.refund(amount=original.amount)
-
-
-def test_refund_should_accept_partial_refund_amounts():
-    pass
-
-
-def test_refund_with_failed_payment_should_raise_invalid_request_error():
-    pass
 
 
 def test_eqaulity_check_holds_among_identical_payments_only():

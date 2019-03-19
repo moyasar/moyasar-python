@@ -4,8 +4,8 @@ from moyasar.constructor import Constructor
 
 
 class Source(Constructor):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, data):
+        super().__init__(data)
 
     @classmethod
     def build(cls, source):
@@ -18,12 +18,12 @@ class Source(Constructor):
     @classmethod
     def source_to_creditcard(cls, data):
         data.pop('type')
-        return CreditCard(**data)
+        return CreditCard(data)
 
     @classmethod
     def source_to_sadad(cls, data):
         data.pop('type')
-        return Sadad(**data)
+        return Sadad(data)
 
 
 class CreditCard(Source):
