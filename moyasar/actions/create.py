@@ -1,6 +1,6 @@
 import moyasar
 import json
-from moyasar.constructor import Constructor
+from moyasar.helpers import Constructor
 
 
 class Create(Constructor):

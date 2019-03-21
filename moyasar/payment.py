@@ -1,11 +1,12 @@
+import json
+
 from moyasar.resource import Resource
 from moyasar.actions.refund import Refund
-from moyasar.constructor import Constructor
+from moyasar.helpers import Constructor
+from moyasar.helpers import Format
 
 
 class Source(Constructor):
-    def __init__(self, data):
-        super().__init__(data)
 
     @classmethod
     def build(cls, source):
@@ -18,7 +19,9 @@ class Source(Constructor):
     @classmethod
     def source_to_creditcard(cls, data):
         data.pop('type')
-        return CreditCard(data)
+        # Because dumps() in helpers.py works with basic types (str, int, float, bool, None)
+        # CreditCard obj needs to be returned as str to pass Payment's __str__()
+        return json.dumps(CreditCard(data).__dict__)
 
     @classmethod
     def source_to_sadad(cls, data):
@@ -27,14 +30,16 @@ class Source(Constructor):
 
 
 class CreditCard(Source):
-    pass
+    def __str__(self):
+        return json.dumps(self.__dict__)
 
 
 class Sadad(Source):
     pass
 
 
-class Payment(Resource, Refund):
+class Payment(Resource, Refund, Format):
+
     def __init__(self, data):
         super().__init__(data)
         self.source = Source.build(self.source)
