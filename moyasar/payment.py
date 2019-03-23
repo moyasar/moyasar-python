@@ -6,7 +6,7 @@ from moyasar.helpers import Constructor
 from moyasar.helpers import Format
 
 
-class Source(Constructor):
+class Source(Constructor, Format):
 
     @classmethod
     def build(cls, source):
@@ -19,9 +19,7 @@ class Source(Constructor):
     @classmethod
     def source_to_creditcard(cls, data):
         data.pop('type')
-        # Because dumps() in helpers.py works with basic types (str, int, float, bool, None)
-        # CreditCard obj needs to be returned as str to pass Payment's __str__()
-        return json.dumps(CreditCard(data).__dict__)
+        return CreditCard(data)
 
     @classmethod
     def source_to_sadad(cls, data):
