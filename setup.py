@@ -19,6 +19,8 @@ setuptools.setup(
     ],
     install_requires=[
         'requests',
+    ],
+    tests_require=[
         'httpretty',
         'pytest'
     ],

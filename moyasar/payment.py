@@ -1,11 +1,12 @@
+import json
+
 from moyasar.resource import Resource
 from moyasar.actions.refund import Refund
-from moyasar.constructor import Constructor
+from moyasar.helpers import Constructor
+from moyasar.helpers import Format
 
 
-class Source(Constructor):
-    def __init__(self, data):
-        super().__init__(data)
+class Source(Constructor, Format):
 
     @classmethod
     def build(cls, source):
@@ -27,14 +28,16 @@ class Source(Constructor):
 
 
 class CreditCard(Source):
-    pass
+    def __str__(self):
+        return json.dumps(self.__dict__)
 
 
 class Sadad(Source):
     pass
 
 
-class Payment(Resource, Refund):
+class Payment(Resource, Refund, Format):
+
     def __init__(self, data):
         super().__init__(data)
         self.source = Source.build(self.source)
