@@ -2,6 +2,8 @@ import json
 
 from moyasar.resource import Resource
 from moyasar.actions.refund import Refund
+from moyasar.actions.capture import Capture
+from moyasar.actions.void import Void
 from moyasar.helpers import Constructor
 from moyasar.helpers import Format
 
@@ -36,7 +38,7 @@ class Sadad(Source):
     pass
 
 
-class Payment(Resource, Refund, Format):
+class Payment(Resource, Refund, Capture, Void, Format):
 
     def __init__(self, data):
         super().__init__(data)
@@ -44,5 +46,15 @@ class Payment(Resource, Refund, Format):
 
     def refund(self, amount=None):
         super().refund(amount)
+        self.source = Source.build(self.source)
+        return self
+
+    def capture(self, amount=None):
+        super().capture(amount)
+        self.source = Source.build(self.source)
+        return self
+
+    def void(self):
+        super().void()
         self.source = Source.build(self.source)
         return self

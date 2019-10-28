@@ -17,7 +17,7 @@ def fill_object(object, data):
         object.__setattr__(key, data[key])
 
 
-def request(http_verb, url, data, key=None):
+def request(http_verb, url, data=None, key=None):
     moyasar_key = key or api_key
 
     if moyasar_key is None:
