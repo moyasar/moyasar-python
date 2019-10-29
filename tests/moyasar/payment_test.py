@@ -104,3 +104,31 @@ def test_eqaulity_check_differentiate_non_identical_payments():
             for k, v in val.__dict__.items():
                 payment_two_values.append(v)
     assert payment_one_values != payment_two_values
+
+
+def test_capture_should_return_payment_object_upon_success():
+    id = '1b82356d-b5fd-46f8-bde9-3680d62f289a'
+    ss.stub_server_request("get", moyasar.Payment.fetch_url(id),
+                           resource=f.payment, status=200)
+    moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
+    payment = moyasar.Payment.fetch(id)
+    ss.stub_server_request("post", f'{moyasar.api_url}/payments/{payment.id}/capture',
+                           resource=f.payment, status=200)
+    moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
+    captured = payment.capture()
+    assert isinstance(captured, moyasar.Payment)
+
+
+def test_void_should_return_payment_object_upon_success():
+    id = '1b82356d-b5fd-46f8-bde9-3680d62f289a'
+    ss.stub_server_request("get", moyasar.Payment.fetch_url(id),
+                           resource=f.payment, status=200)
+    moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
+    payment = moyasar.Payment.fetch(id)
+    ss.stub_server_request("post", f'{moyasar.api_url}/payments/{payment.id}/void',
+                           resource=f.payment, status=200)
+    moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
+    voided = payment.void()
+    assert isinstance(voided, moyasar.Payment)
+
+
