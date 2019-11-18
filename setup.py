@@ -4,7 +4,7 @@ with open("README.rst", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name="moyasar",
-    version="0.6.1",
+    version="0.6.5",
     author="Moyasar",
     author_email="developers@moyasar.com",
     description="Moyasar Python language wrapper",
