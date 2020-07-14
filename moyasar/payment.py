@@ -4,42 +4,38 @@ from moyasar.resource import Resource
 from moyasar.actions.refund import Refund
 from moyasar.actions.capture import Capture
 from moyasar.actions.void import Void
-from moyasar.helpers import Constructor
-from moyasar.helpers import Format
+from moyasar.helpers import Constructor, Format
 
 
 class Source(Constructor, Format):
-
     @classmethod
     def build(cls, source):
-        if source['type'] == "creditcard":
-            source = Source.source_to_creditcard(source)
-        else:
-            source = Source.source_to_sadad(source)
-        return source
-
-    @classmethod
-    def source_to_creditcard(cls, data):
-        data.pop('type')
-        return CreditCard(data)
-
-    @classmethod
-    def source_to_sadad(cls, data):
-        data.pop('type')
-        return Sadad(data)
+        source_klass = sources[source.pop('type')]
+        return source_klass(source)
 
 
 class CreditCard(Source):
     def __str__(self):
         return json.dumps(self.__dict__)
 
-
 class Sadad(Source):
     pass
 
+class ApplePay(Source):
+    pass
+
+class STCPay(Source):
+    pass
+
+sources = {
+    'creditcard': CreditCard,
+    'sadad': Sadad,
+    'applepay': ApplePay,
+    'stcpay': STCPay,
+}
+
 
 class Payment(Resource, Refund, Capture, Void, Format):
-
     def __init__(self, data):
         super().__init__(data)
         self.source = Source.build(self.source)
