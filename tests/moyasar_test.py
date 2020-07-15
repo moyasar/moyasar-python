@@ -6,7 +6,6 @@ import tests.server_stubs as ss
 def test_that_it_has_a_version_number():
     assert moyasar.api_version is not ''
 
-
 def test_should_accept_api_key():
     moyasar.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
     assert moyasar.api_key is not ''
