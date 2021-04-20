@@ -18,7 +18,7 @@ more-itertools==6.0.0
 pbr==5.1.2
 pip-autoremove==0.9.1
 pluggy==0.9.0
-py==1.8.0
+py==1.10.0
 py-bcrypt==0.4
 Pygments==2.3.1
 pytest==4.3.0
