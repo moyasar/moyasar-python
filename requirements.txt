@@ -22,7 +22,7 @@ py==1.10.0
 py-bcrypt==0.4
 Pygments==2.7.4
 pytest==4.3.0
-PyYAML==4.2b1
+PyYAML==5.4
 requests==2.24.0
 six==1.12.0
 smmap2==2.0.5
